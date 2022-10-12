@@ -38,3 +38,5 @@ for n, word in enumerate(words):
     if idx == word:
         print(f'Слово "{idx}" найдено на на позиции {n}.')
         exit()
+
+print(f'Слово "{idx}" не найдено. Посмотрите в трудах Карла Маркса.')
