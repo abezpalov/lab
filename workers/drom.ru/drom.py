@@ -1,12 +1,10 @@
 import requests
 import lxml.html
-
-from multiprocessing import Pool
 from multiprocessing.dummy import Pool as ThreadPool
 
 # Настройки
-threads = 16  # Количество потоков
-log = 0  # Уровень детализации вывода процесса на экран
+threads = 8  # Количество потоков
+log = 2  # Уровень детализации вывода процесса на экран
 
 
 def get_region_list() -> list:
@@ -146,7 +144,7 @@ def parce_ad(item):
     price = int(item.xpath('.//*[contains(@data-ftid, "_price")]')[0].text.replace('\xa0', ''))
 
     if log >= 2:
-        print(f'{title=}, {model=}, {year=}, {price=}, {promo=}, {broken=}, {owner=}, {location=}, {link=}')
+        print(f'{model=}, {year=}, {price=}, {promo=}, {broken=}')
 
     update_ad_data(title=title, model=model, year=year, price=price, promo=promo, broken=broken, owner=owner,
                    location=location, link=link)
@@ -174,7 +172,7 @@ def update_ad_data(title: str, model: str, year: int, price: int, promo: bool, b
 def main():
     regions = get_region_list()
 
-    if threads:
+    if threads > 1:
         pool = ThreadPool(threads)
         pool.map(parse_region, regions)
     else:
