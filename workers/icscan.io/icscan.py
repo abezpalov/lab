@@ -121,14 +121,13 @@ def get_details_for_accounts(principals):
 
 def main():
 
-    # principals = get_principals()
+    principals = get_principals()
     # principals = get_principals_from_file()
 
-    # principals = get_accounts_for_principals(principals)
-    principals = get_accounts_from_file()
+    principals = get_accounts_for_principals(principals)
+    # principals = get_accounts_from_file()
 
     principals = get_details_for_accounts(principals)
-
 
 
 if __name__ == "__main__":
