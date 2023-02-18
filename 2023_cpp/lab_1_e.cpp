@@ -5,12 +5,12 @@ using namespace std;
 int main() {
 
     // Считываем дроби
-    int q1, r1, q2, r2;
+    long long q1, r1, q2, r2;
     cin >> q1 >> r1;
     cin >> q2 >> r2;
 
     // Считаем
-    int p, q, r;
+    long long p, q, r;
     r = r1 * r2;
     q = q1 * r2 + q2 * r1;
 
