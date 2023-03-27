@@ -10,19 +10,24 @@ int main() {
 
     int result = 0;
 
-    if ((h2 < h1) && (w2 < w1) && (l2 < l1)) {result = 2;}
-    else if ((h2 < h1) && (l2 < w1) && (w2 < l1)) {result = 2;}
-    else if ((w2 < h1) && (h2 < h1) && (l2 < l1)) {result = 2;}
-    else if ((w2 < h1) && (l2 < h1) && (h2 < l1)) {result = 2;}
-    else if ((l2 < h1) && (h2 < w1) && (w2 < l1)) {result = 2;}
-    else if ((l2 < h1) && (w2 < w1) && (h2 < l1)) {result = 2;}
+    if (h2 < h1 && w2 < w1 && l2 < l1) result = 2;
+    if (h2 < h1 && w2 < l1 && l2 < w1) result = 2;
 
-    else if ((h2 > h1) && (w2 > w1) && (l2 > l1)) {result = 1;}
-    else if ((h2 > h1) && (l2 > w1) && (w2 > l1)) {result = 1;}
-    else if ((w2 > h1) && (h2 > h1) && (l2 > l1)) {result = 1;}
-    else if ((w2 > h1) && (l2 > h1) && (h2 > l1)) {result = 1;}
-    else if ((l2 > h1) && (h2 > w1) && (w2 > l1)) {result = 1;}
-    else if ((l2 > h1) && (w2 > w1) && (h2 > l1)) {result = 1;}
+    if (h2 < w1 && w2 < l1 && l2 < h1) result = 2;
+    if (h2 < w1 && w2 < h1 && l2 < l1) result = 2;
+
+    if (h2 < l1 && w2 < h1 && l2 < w1) result = 2;
+    if (h2 < l1 && w2 < w1 && l2 < h1) result = 2;
+
+    if (h2 > h1 && w2 > w1 && l2 > l1) result = 1;
+    if (h2 > h1 && w2 > l1 && l2 > w1) result = 1;
+
+    if (h2 > w1 && w2 > l1 && l2 > h1) result = 1;
+    if (h2 > w1 && w2 > h1 && l2 > l1) result = 1;
+
+    if (h2 > l1 && w2 > h1 && l2 > w1) result = 1;
+    if (h2 > l1 && w2 > w1 && l2 > h1) result = 1;
+
 
     cout << result << endl;
 
