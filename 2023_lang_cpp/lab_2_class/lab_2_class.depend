@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1697099619 source:/home/abezpalov/lab/2023_lang_cpp/lab_2_class/main.cpp
+	<iostream>
+	"Complex.h"
+	"Conus.h"
+
+1697101814 /home/abezpalov/lab/2023_lang_cpp/lab_2_class/include/Complex.h
+
+1695896810 source:/home/abezpalov/lab/2023_lang_cpp/lab_2_class/src/Conus.cpp
+	"Conus.h"
+
+1695896810 /home/abezpalov/lab/2023_lang_cpp/lab_2_class/include/Conus.h
+
