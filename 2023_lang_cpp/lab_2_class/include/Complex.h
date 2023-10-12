@@ -11,9 +11,14 @@ private:
 
 public:
 
-    Complex(double _re=1.0, double _im=1.0);
+    Complex(double _re=1.0, double _im=0.0);
     ~Complex();
-    void print();
+    void print() const;
+    double get_r() const; // Модуль комплексного числа числа
+    double get_fi() const; // Угол поворота комплексного числа
+    double get_re() const; // Вещественная часть
+    double get_im() const; // Мнимая часть
+    Complex get_conjugated() const; // Возвращает сопряжённое число
 
     Complex& operator=(const Complex& c);
     Complex& operator=(const int& c);
@@ -45,13 +50,13 @@ public:
     Complex operator/(const float& c);
     Complex operator/(const double& c);
 
-    double get_r(); // Модуль комплексного числа числа
-    double get_fi(); // Угол поворота комплексного числа
+    // Проверка на равенство
+    bool operator==(const Complex& c);
+    bool operator!=(const Complex& c);
 
-    double get_re(); // Вещественная часть
-    double get_im(); // Мнимая часть
-
-    Complex get_conjugated(); // Возвращает сопряжённое число
+    // Сравнение по модулю!!
+    bool operator<(const Complex& c);
+    bool operator>(const Complex& c);
 
 };
 

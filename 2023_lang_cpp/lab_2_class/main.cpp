@@ -34,8 +34,12 @@ int main()
     f.print();
 
     cout << "Проверяем вычитание!" << endl;
-    f = a - b - b - b - b;
+    f = a - b - b - b - b * a + b + 1 + 2.0;
     f.print();
+
+    cout << "Проверяем расчёт сопряжённого!" << endl;
+    e.print();
+    e.get_conjugated().print();
 
     return 0;
 }
