@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1677354271 source:/home/abezpalov/lab/2023_cpp/main.cpp
+	<iostream>
+	<string>
+
+1694687647 source:/home/abezpalov/lab/2023_cpp_2/main.cpp
+	<iostream>
+	<fstream>
+	<ctime>
+	<sstream>
+	<string>
+

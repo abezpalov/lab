@@ -1,17 +1,23 @@
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
-bool in_array(int element, ) {
-
-}
 
 
 
 int main() {
 
-    int w, h;
-    cin >> w >> h;
+    fstream f1;
+    fstream f2;
+
+    f1.open("f1.txt", ios::out);
+    f1 << "test";
+    f1.close();
+
+    f2.open("f2.txt", ios::out);
+    f2 << "test";
+    f2.close();
 
 
 
