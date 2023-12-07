@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1701083216 source:/home/abezpalov/lab/2023_lang_cpp/lab_3/main.cpp
+	<iostream>
+	<queue>
+
+1701091534 source:/home/abezpalov/lab/2023_lang_cpp/lab_3_3/main.cpp
+	<iostream>
+	<queue>
+	<map>
+	<set>
+
