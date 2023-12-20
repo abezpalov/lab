@@ -1,12 +1,14 @@
 # depslib dependency file v1.0
-1701953720 source:/home/abezpalov/lab/2023_lang_cpp/lab_4/main.cpp
+1703070484 source:/home/abezpalov/lab/2023_lang_cpp/lab_4/main.cpp
 	<iostream>
 	"Point.h"
 
-1701955924 /home/abezpalov/lab/2023_lang_cpp/lab_4/include/Point.h
+1703070504 /home/abezpalov/lab/2023_lang_cpp/lab_4/include/Point.h
 
-1701953637 source:/home/abezpalov/lab/2023_lang_cpp/lab_4/src/Point.cpp
+1703070381 source:/home/abezpalov/lab/2023_lang_cpp/lab_4/src/Point.cpp
 	<iostream>
+	<sstream>
+	<string.h>
 	<math.h>
 	"Point.h"
 
