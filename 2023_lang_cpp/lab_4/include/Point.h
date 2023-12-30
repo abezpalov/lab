@@ -1,6 +1,9 @@
 #ifndef POINT_H
 #define POINT_H
 
+#include <stdexcept>
+#include <string>
+
 
 class Point {
 
@@ -136,6 +139,17 @@ class Triangle {
 
     private:
 
+};
+
+
+class TriangleIsoscelesCreateError: public std::invalid_argument {
+    public:
+        explicit TriangleIsoscelesCreateError(double _value):
+            std::invalid_argument("Из заданных точек не создать равнобедренный треугольник. Отклонение = " + std::to_string(_value) ),
+                                  value(_value ) {}
+            double getValue() const { return value; }
+    private:
+        double value;
 };
 
 

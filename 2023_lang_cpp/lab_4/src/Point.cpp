@@ -5,7 +5,6 @@
 
 #include "Point.h"
 
-
 // Реализация класса Точка
 
 Point::Point() {
@@ -329,7 +328,13 @@ TriangleIsosceles::TriangleIsosceles(Point A, Point B, Point C){
         this->B = B;
         this->C = C;
     } else {
-            throw 1;
+            double x1 = abs(a.norm() - b.norm());
+            double x2 = abs(c.norm() - b.norm());
+            double x3 = abs(c.norm() - a.norm());
+
+            double x = std::min(x1, std::min(x2, x3));
+
+            throw TriangleIsoscelesCreateError(x);
     }
 }
 

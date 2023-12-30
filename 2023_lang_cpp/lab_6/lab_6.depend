@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1703754656 source:/home/abezpalov/lab/2023_lang_cpp/lab_6/src/Overflow.cpp
+	"Overflow.h"
+
+1703754638 /home/abezpalov/lab/2023_lang_cpp/lab_6/include/Overflow.h
+	<stdexcept>
+	<string>
+
+1703754490 source:/home/abezpalov/lab/2023_lang_cpp/lab_6/main.cpp
+	<iostream>
+	<vector>
+

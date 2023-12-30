@@ -1,4 +1,5 @@
 #include <iostream>
+#include <exception>
 #include "Point.h"
 
 using namespace std;
@@ -118,7 +119,17 @@ int main() {
     ti1.print();
     cout << "ti1.is_isosceles() = " << ti1.is_isosceles() << endl;
     cout << "ti1.is_equilateral() = " << ti1.is_equilateral() << endl;
-    // TriangleIsosceles ti2 = TriangleIsosceles(a1, a2, a3);
+
+    try {
+        TriangleIsosceles ti2 = TriangleIsosceles(a1, a2, a3);
+    }
+    catch (const exception& ex){
+        cout << "Exception is intercepted!!" << endl << endl;
+    }
+
+    // TriangleIsosceles ti3 = TriangleIsosceles(a1, a2, a3);
+
+
     cout << endl;
 
     cout << "TriangleEquilateral::TriangleEquilateral(Point A, Point B, Point C)" << endl;
@@ -126,7 +137,7 @@ int main() {
     te1.print();
     cout << "te1.is_isosceles() = " << te1.is_isosceles() << endl;
     cout << "te1.is_equilateral() = " << te1.is_equilateral() << endl;
-    // TriangleEquilateral te2 = TriangleEquilateral(a1, a2, a3);
+    TriangleEquilateral te2 = TriangleEquilateral(a1, a2, a3);
     cout << endl;
 
 
