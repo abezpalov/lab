@@ -2,6 +2,7 @@ import math
 
 
 def lab_1a():
+    """ Последствия """
 
     summ = 0.0
 
@@ -15,6 +16,7 @@ def lab_1a():
 
 
 def lab_1b():
+    """ Желания и возможности """
 
     # Считываем количество рецептов
     n = input().strip()
@@ -45,10 +47,11 @@ def lab_1b():
 
 
 def lab_1c():
+    """ Очередь и лифт """
 
     result = 0
 
-    # Считываем количство человек
+    # Считываем количество человек
     n_peoples = int(input().strip())
 
     # Считываем вместимость лифта
@@ -102,6 +105,8 @@ def lab_1c():
 
 
 def lab_1d():
+    """ Сертификаты """
+
     result = 0
     count = 0
 
@@ -130,6 +135,7 @@ def lab_1d():
 
 
 def lab_1e():
+    """ Настойчивость """
 
     # Читаем количество дней и избавляемся от этих данных
     _ = input()
@@ -148,7 +154,7 @@ def lab_1e():
 
     for day in days:
 
-        #Если рецепт приготовлен не удачно
+        # Если рецепт приготовлен не удачно
         if not ok[day]:
             n_of_bad += 1
             if n_of_bad > max_n_of_bad:
@@ -171,6 +177,7 @@ def lab_1e():
 
 # TODO Не проходит первый тест
 def lab_1f():
+    """ Относительность """
 
     # Читаем количество дней и избавляемся от этих данных
     _ = input()
@@ -211,6 +218,7 @@ def lab_1f():
 
 
 def lab_2a():
+    """ Интернет-ресурсы """
 
     n_of_urls, time_limit = input().strip().split()
     n_of_urls, time_limit = int(n_of_urls), int(time_limit)
@@ -236,18 +244,84 @@ def lab_2a():
     print(time_current)
 
 
+def lab_2b():
+    """ Рациональный выбор """
+    pass
+
+
+def lab_2c():
+    """ Фотографии - 0 """
+    pass
+
+
+def lab_2d():
+    """ Установление хорошей погоды """
+    pass
+
+
+def lab_2e():
+    """ Буклет """
+    pass
+
+
+def lab_3a():
+    """ Череда попыток """
+    pass
+
+
+def lab_3b():
+    """ И снова об удаче """
+    pass
+
+
+def lab_3c():
+    """ Запоминание """
+    pass
+
+
+def lab_3d():
+    """ Уровень освоения """
+    pass
+
+
+def lab_3e():
+    """ Открытие страницы """
+    pass
+
+
+def lab_4a():
+    """ Множество оттенков """
+    pass
+
+
+def lab_4b():
+    """ Картотеки """
+    pass
+
+
+def lab_4c():
+    """ Восстановление порядка """
+    pass
+
+
+def lab_4d():
+    """ Задержка сообщений """
+    pass
+
+
+def lab_4e():
+    """ Внимание к деталям """
+    pass
+
+
 # Настройки
 LAB_N = '2a'
 
 labs = {
-    '1a': lab_1a,
-    '1b': lab_1b,
-    '1c': lab_1c,
-    '1d': lab_1d,
-    '1e': lab_1e,
-    '1f': lab_1f,
-    '2a': lab_2a,
-}
+    '1a': lab_1a, '1b': lab_1b, '1c': lab_1c, '1d': lab_1d, '1e': lab_1e, '1f': lab_1f,
+    '2a': lab_2a, '2b': lab_2b, '2c': lab_2c, '2d': lab_2d, '2e': lab_2e,
+    '3a': lab_3a, '3b': lab_3b, '3c': lab_3c, '3d': lab_3d, '3e': lab_3e,
+    '4a': lab_4a, '4b': lab_4b, '4c': lab_4c, '4d': lab_4d, '4e': lab_4e, }
 
 
 # Запуск
