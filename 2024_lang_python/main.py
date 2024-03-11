@@ -226,7 +226,7 @@ def lab_2a():
     while time_limit >= time_current and len(urls):
 
         i = 0
-        while urls[i] == urls[0] and i < len(urls):
+        while i < len(urls) and urls[i] == urls[0]:
             i += 1
 
         time_current += urls[0] * i
