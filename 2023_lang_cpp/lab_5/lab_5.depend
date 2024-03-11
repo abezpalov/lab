@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1703154040 source:/home/abezpalov/lab/2023_lang_cpp/lab_5/main.cpp
+	<iostream>
+	<string>
+	<vector>
+	"Image.h"
+
+1703154134 source:/home/abezpalov/lab/2023_lang_cpp/lab_5/src/Image.cpp
+	"Image.h"
+	<iostream>
+	<string>
+	<vector>
+
+1703154243 /home/abezpalov/lab/2023_lang_cpp/lab_5/include/Image.h
+	<string>
+	<vector>
+
