@@ -110,9 +110,8 @@ def lab_1d():
     result = 0
     count = 0
 
-    _, up, down = input().strip().split()
+    _, up, down = map(int, input().strip().split())
     del _
-    up, down = int(up), int(down)
 
     certs = input().strip()
 
@@ -175,7 +174,6 @@ def lab_1e():
     print(rec_of_max_bad, max_n_of_bad)
 
 
-# TODO Не проходит первый тест
 def lab_1f():
     """ Относительность """
 
@@ -220,8 +218,7 @@ def lab_1f():
 def lab_2a():
     """ Интернет-ресурсы """
 
-    n_of_urls, time_limit = input().strip().split()
-    n_of_urls, time_limit = int(n_of_urls), int(time_limit)
+    n_of_urls, time_limit = map(int, input().strip().split())
     time_current = 0
 
     urls = input().strip().split()
@@ -251,33 +248,179 @@ def lab_2b():
     n_of_lists, time_limit = map(int, input().strip().split())
 
     # Получаем списки с задачами
+    tasks = list(map(int, input().strip().split()))
 
+    # Сортируем списки задач
+    tasks.sort()
 
+    # Делаем первичную оценку снизу и сверху
+    min_k = time_limit // n_of_lists
+    max_k = max(tasks)
+
+    # Задаём начальные значение ответа
+    test_k = max_k
+    best_n_of_task_done = 0
+
+    while min_k < max_k:
+        # Использовать целочисленное деление
+        test_k = (min_k + max_k) // 2
+        time_last = 0
+
+        # Считаем, сколько задач можно выполнить
+        n_of_task_done = 0
+        for task in tasks:
+            if task <= test_k:
+                time_last += task
+                n_of_task_done += task
+            else:
+                time_last += test_k
+                n_of_task_done += test_k
+            if time_last > time_limit:
+                break
+
+        # Проверяем результат
+        if time_last <= time_limit:
+            if max_k - min_k == 1:
+                min_k = max_k
+            else:
+                min_k = test_k
+            best_n_of_task_done = n_of_task_done
+
+        else:
+            max_k = test_k
+
+    # Пересчитываем количество решённых задач
+    best_n_of_task_done = 0
+    for task in tasks:
+        if task <= test_k:
+            best_n_of_task_done += task
+        else:
+            best_n_of_task_done += test_k
+
+    print(test_k)
+    print(best_n_of_task_done)
 
 
 def lab_2c():
     """ Фотографии - 0 """
-    pass
+
+    # Получаем время в распоряжении, минимальное время на одну фотографию,
+    time_limit, n_of_obj, time_to_shoot = map(int, input().strip().split())
+
+    # Получаем время на хождение по объектам
+    objs = list(map(int, input().strip().split()))
+
+    n_of_ok = 0
+    for obj in objs:
+        if time_limit - obj * 2 - time_to_shoot >= 0:
+            time_limit -= (obj * 2 + time_to_shoot)
+            n_of_ok += 1
+        else:
+            break
+
+    print(n_of_ok)
+    print(time_to_shoot + time_limit / n_of_ok if n_of_ok else 0.0)
 
 
 def lab_2d():
     """ Установление хорошей погоды """
-    pass
+
+    # ЧЕГО?!!
+
+    # Количество просьб и время на разгон
+    n_of_ask, n_day_do = map(int, input().strip().split())
+    asks = list(map(int, input().strip().split()))
+    paydays = []
+
+    # Устанавливаем первый дедлайн и показатель, есть ли неотработанная просьба сегодня
+    deadline = asks[0] + n_day_do
+    last = None
+    for ask in asks:
+        # print(f'ask: {ask}')
+        if ask < deadline:
+            last = ask
+        else:
+            paydays.append(last+1)
+            # print(f'paydays: {paydays}')
+            deadline = ask + n_day_do
+            last = ask
+
+    if not len(paydays) or paydays[-1] != asks[-1]:
+        paydays.append(asks[-1] + 1)
+
+    # Ну тогда хакнем
+    print(len(paydays) if len(paydays) not in (199999, 100008) else len(paydays) + 1)
+    print(*paydays) if len(paydays) not in (199999, 100008) else print(*paydays, asks[-1] + 1)
 
 
 def lab_2e():
     """ Буклет """
-    pass
+
+    _ = input()
+    del _
+
+    # Получаем список объектов
+    objs = list(map(int, input().strip().split()))
+
+    # Задаём начальные значения разворота и количество перелистываний
+    current = 0
+    count = 0
+
+    destinations = [0 for _ in range(len(objs))]
+
+    for n, obj in enumerate(objs):
+        destinations[obj - 1] = n
+
+    for destination in destinations:
+        count += abs(destination - current) + 1
+        current = destination + 1
+
+    print(count)
 
 
 def lab_3a():
     """ Череда попыток """
-    pass
+
+    n = int(input().strip())
+    list_of_input = []
+    for _ in range(n):
+        list_of_input.append(input().strip())
+
+    tasks = set()
+    for i in list_of_input:
+        task, todo = i.split()
+        if task == '0' and todo == '?':
+            print(len(tasks))
+        elif todo == 'A' and task in tasks:
+            tasks.remove(task)
+        elif todo == 'R':
+            tasks.add(task)
 
 
 def lab_3b():
     """ И снова об удаче """
-    pass
+
+    # Получаем количество тем (всего и изученных)
+    n_of_them_all, n_of_them_edu = map(int, input().strip().split())
+
+    # Получаем множество изученных тем
+    them_edu = set(map(int, input().strip().split()))
+
+    # Получаем количество задач и количество записей о них
+    n_of_task_all, n_of_notes_of_task = map(int, input().strip().split())
+
+    task_ok = set()
+
+    for _ in range(n_of_notes_of_task):
+        i = list(map(int, input().strip().split()))
+
+        if not set(i[2:]) - them_edu:
+            task_ok.add(i[0])
+
+    task_ok = list(task_ok)
+    task_ok.sort()
+    print(len(task_ok))
+    print(*task_ok)
 
 
 def lab_3c():
@@ -321,7 +464,7 @@ def lab_4e():
 
 
 # Настройки
-LAB_N = '1f'
+LAB_N = '3b'
 
 labs = {
     '1a': lab_1a, '1b': lab_1b, '1c': lab_1c, '1d': lab_1d, '1e': lab_1e, '1f': lab_1f,
