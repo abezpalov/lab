@@ -188,7 +188,7 @@ def lab_1f():
 
     current_diff = 1
 
-    max_diff = 0
+    max_diff = 1
     min_diff = 1
 
     n_of_min_diff = 1
@@ -202,7 +202,7 @@ def lab_1f():
         else:
             current_diff -= 1
 
-        if current_diff > max_diff:
+        if current_diff >= max_diff:
             max_diff = current_diff
             n_of_max_diff = n+2
 
@@ -212,7 +212,7 @@ def lab_1f():
 
     first_diff = 1 if min_diff > 1 else 1-min_diff
 
-    print(first_diff)
+    print(first_diff+1)
     print(n_of_min_diff)
     print(n_of_max_diff)
 
@@ -246,7 +246,13 @@ def lab_2a():
 
 def lab_2b():
     """ Рациональный выбор """
-    pass
+
+    # Считаем количество списков задач и время
+    n_of_lists, time_limit = map(int, input().strip().split())
+
+    # Получаем списки с задачами
+
+
 
 
 def lab_2c():
@@ -315,7 +321,7 @@ def lab_4e():
 
 
 # Настройки
-LAB_N = '2a'
+LAB_N = '1f'
 
 labs = {
     '1a': lab_1a, '1b': lab_1b, '1c': lab_1c, '1d': lab_1d, '1e': lab_1e, '1f': lab_1f,
