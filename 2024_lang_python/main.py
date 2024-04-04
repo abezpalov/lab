@@ -425,28 +425,191 @@ def lab_3b():
 
 def lab_3c():
     """ Запоминание """
-    pass
+    # TODO
+
+    # Получаем количество задач и время памяти
+    n_of_task, base_memory_time = map(int, input().strip().split())
+
+    theory = {}
+    memory_times = {}
+    count = 0
+    for t in range(n_of_task):
+        task = list(input().strip().split())
+        # print(f'task {task[1:]}')
+        # print(f' - theory: {theory}')
+        # print(f' - memory_times: {memory_times}')
+        for them in task[1:]:
+
+            # print(f' - - {them}')
+
+            # Если тема не знакома или забыта
+            if them not in theory or theory[them] < t:
+
+                # Выясняем уровень запоминания
+                if them not in memory_times:
+                    memory_times[them] = base_memory_time
+
+                theory[them] = t + memory_times[them]
+                count += 1
+                # print(f' - - lern {them}')
+
+            # Если тема знакома
+            else:
+                memory_times[them] += 1
+                theory[them] += 1
+                # print(f' - - memory {memory_times[them]}')
+
+        # print(f' - theory: {theory}')
+        # print(f' - memory_times: {memory_times}')
+
+    print(count)
 
 
 def lab_3d():
     """ Уровень освоения """
-    pass
+
+    n_tasks, n_thems = map(int, input().strip().split())
+
+    todo = {'A': +1, 'R': -1}
+    thems = {}
+
+    for _ in range(n_tasks):
+        data = list(input().strip().split())
+        what = data[0]
+        for them in list(map(int, data[2:])):
+            thems[them] = thems[them] + todo[what] if them in thems else todo[what]
+
+    to_learn = set()
+    for them in thems:
+        if thems[them] <= 0:
+            to_learn.add(them)
+
+    print(len(to_learn))
+    if len(to_learn):
+        to_learn = list(to_learn)
+        to_learn.sort()
+        print(*to_learn)
 
 
 def lab_3e():
     """ Открытие страницы """
-    pass
+
+    # Получаем количесто задач и предел страниц
+    n_of_task, limit = map(int, input().strip().split())
+
+    thems = {}
+    opened_pages = set()
+    count = 0
+    for _ in range(n_of_task):
+
+        data = list(input().strip().split())
+        data = data[1:]
+
+        # Если количество открытых страниц превышено
+        if len(opened_pages) > limit:
+            opened_pages = set()
+
+        for them in data:
+
+            # Если тема не открыта
+            if them not in opened_pages:
+                opened_pages.add(them)
+                thems[them] = thems[them] + 1 if them in thems else 1
+                count += 1
+
+    print(count)
+
+    all_in = set()
+    for them in thems:
+        all_in.add(thems[them])
+
+    print(max(all_in))
 
 
 def lab_4a():
     """ Множество оттенков """
-    pass
+
+    # Считываем допустимое отклонение
+    _, delta = map(int, input().strip().split())
+
+    data = list(map(int, input().strip().split()))
+    data.sort()
+
+    count = 1
+    groups = {1: 1}
+    for n in range(len(data)-1):
+        if data[n+1] - data[n] > delta:
+            count += 1
+            groups[count] = 1
+        else:
+            groups[count] += 1
+    print(count)
+
+    all_in = set()
+    for group in groups:
+        all_in.add(groups[group])
+    print(min(all_in))
+    print(max(all_in))
 
 
 def lab_4b():
     """ Картотеки """
-    pass
 
+    first_len, second_len, limit = map(int, input().split())
+
+    first_box = list(map(int, input().split()))
+    second_box = list(map(int, input().split()))
+
+    cards = set()
+    first_start, second_start = 0, 0
+    first_count, second_count = 0, 0
+    first_do, second_do = True, True
+
+    while first_do or second_do:
+
+        # print(f'\nПодходим к первой коробке')
+
+        if first_do:
+            i = 0
+            for n in range(first_start, first_len):
+
+                # print(n, first_box[n])
+
+                if first_box[n] not in cards:
+                    cards.add(first_box[n])
+                    # print(f' - берём карту {first_box[n]} {cards}')
+                    first_count += 1
+                    i += 1
+                    # print(f' - i: {i}; limit: {limit}')
+                    if i >= limit:
+                        first_start = n+1
+                        break
+            else:
+                # print(f'Первая коробка завершена')
+                first_do = False
+
+        # print(f'\nПодходим ко второй коробке')
+
+        if second_do:
+            i = 0
+            for n in range(second_start, second_len):
+
+                # print(n, second_box[n])
+
+                if second_box[n] not in cards:
+                    cards.add(second_box[n])
+                    # print(f' - берём карту {second_box[n]} {cards}')
+                    second_count += 1
+                    i += 1
+                    # print(f' - i: {i}; limit: {limit}')
+                    if i >= limit:
+                        second_start = n+1
+                        break
+            else:
+                # print(f'Вторая коробка завершена')
+                second_do = False
+
+    print(first_count, second_count)
 
 def lab_4c():
     """ Восстановление порядка """
@@ -464,7 +627,7 @@ def lab_4e():
 
 
 # Настройки
-LAB_N = '3b'
+LAB_N = '4b'
 
 labs = {
     '1a': lab_1a, '1b': lab_1b, '1c': lab_1c, '1d': lab_1d, '1e': lab_1e, '1f': lab_1f,
