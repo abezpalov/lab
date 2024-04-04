@@ -1,4 +1,5 @@
 import math
+from typing import List
 
 
 def lab_1a():
@@ -427,40 +428,31 @@ def lab_3c():
     """ Запоминание """
     # TODO
 
-    # Получаем количество задач и время памяти
-    n_of_task, base_memory_time = map(int, input().strip().split())
+    # Получаем количество задач и латентность памяти
+    n_of_tasks, latency = map(int, input().split())
 
-    theory = {}
-    memory_times = {}
+    # Задаём начальные значение памяти и счётчика
+    memory = {}
     count = 0
-    for t in range(n_of_task):
-        task = list(input().strip().split())
-        # print(f'task {task[1:]}')
-        # print(f' - theory: {theory}')
-        # print(f' - memory_times: {memory_times}')
-        for them in task[1:]:
 
-            # print(f' - - {them}')
+    # Проходим по всем задачам
+    for i in range(1, n_of_tasks + 1):
 
-            # Если тема не знакома или забыта
-            if them not in theory or theory[them] < t:
+        # Читаем данные
+        thems = input().strip().split()
+        thems.pop(0)
 
-                # Выясняем уровень запоминания
-                if them not in memory_times:
-                    memory_times[them] = base_memory_time
+        # Проходим по всем темам задания
+        for them in thems:
 
-                theory[them] = t + memory_times[them]
+            # Если тема неизвестна или забыта
+            if them not in memory or memory[them] < i:
+                memory[them] = latency + i
                 count += 1
-                # print(f' - - lern {them}')
 
-            # Если тема знакома
+            # Кажется, я что-то припоминаю
             else:
-                memory_times[them] += 1
-                theory[them] += 1
-                # print(f' - - memory {memory_times[them]}')
-
-        # print(f' - theory: {theory}')
-        # print(f' - memory_times: {memory_times}')
+                memory[them] += 1
 
     print(count)
 
@@ -697,7 +689,7 @@ def foo():
 
 
 # Настройки
-LAB_N = '4e'
+LAB_N = '3c'
 
 labs = {
     '1a': lab_1a, '1b': lab_1b, '1c': lab_1c, '1d': lab_1d, '1e': lab_1e, '1f': lab_1f,
