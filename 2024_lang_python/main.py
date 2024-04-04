@@ -611,23 +611,93 @@ def lab_4b():
 
     print(first_count, second_count)
 
+
 def lab_4c():
     """ Восстановление порядка """
-    pass
+
+    n = int(input().strip())
+
+    objs = []
+    current = 0
+    for n in range(n):
+        todo, obj = input().strip().split()
+        current += int(todo)
+        objs.append((current, obj))
+
+    objs.sort()
+
+    for obj in objs:
+        print(obj[1])
 
 
 def lab_4d():
     """ Задержка сообщений """
-    pass
+
+    _ = input()
+
+    times = list(map(int, input().strip().split()))
+
+    saves = input().strip()
+
+    min_range = times[-1] - times[0]
+    max_range = 0
+
+    last_save_time = times[0]
+
+    for idx in range(1, len(times)):
+        if saves[idx] == 'S':
+            max_range = max(max_range, times[idx] - last_save_time)
+            min_range = min(min_range, times[idx] - last_save_time)
+            last_save_time = times[idx]
+
+    print(min_range)
+    print(max_range)
 
 
 def lab_4e():
     """ Внимание к деталям """
+
+    n_of_photo = int(input().strip())
+
+    count_of_photos = n_of_photo
+    names_views = set()
+    names_count = dict()
+    n_of_bad_photos = 0
+
+    for effect in range(n_of_photo):
+
+        views = list(input().strip().split())
+
+        name, _ = views.pop(0), views.pop(0)
+
+        if name not in names_count:
+            names_views.update(set(views))
+            names_count[name] = 1
+            n_of_bad_photos = effect
+        elif set(views) - names_views:
+            names_count[name] += 1
+            names_views.update(set(views))
+            n_of_bad_photos = effect
+        else:
+            count_of_photos -= 1
+
+    print(count_of_photos)
+    print(len(names_count))
+
+    max_photos = 0
+    for name in names_count:
+        max_photos = max(max_photos, names_count[name])
+
+    print(max_photos)
+    print(n_of_bad_photos+1)
+
+
+def foo():
     pass
 
 
 # Настройки
-LAB_N = '4b'
+LAB_N = '4e'
 
 labs = {
     '1a': lab_1a, '1b': lab_1b, '1c': lab_1c, '1d': lab_1d, '1e': lab_1e, '1f': lab_1f,
@@ -638,5 +708,4 @@ labs = {
 
 # Запуск
 if __name__ == '__main__':
-    if LAB_N in labs:
-        labs[LAB_N]()
+    labs.get(LAB_N, foo)()
