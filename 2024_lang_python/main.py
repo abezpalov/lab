@@ -1,5 +1,4 @@
 import math
-from typing import List
 
 
 def lab_1a():
@@ -256,11 +255,10 @@ def lab_2b():
 
     # Делаем первичную оценку снизу и сверху
     min_k = time_limit // n_of_lists
-    max_k = max(tasks)
+    max_k = tasks[-1]
 
     # Задаём начальные значение ответа
     test_k = max_k
-    best_n_of_task_done = 0
 
     while min_k < max_k:
         # Использовать целочисленное деление
@@ -285,7 +283,6 @@ def lab_2b():
                 min_k = max_k
             else:
                 min_k = test_k
-            best_n_of_task_done = n_of_task_done
 
         else:
             max_k = test_k
@@ -426,13 +423,12 @@ def lab_3b():
 
 def lab_3c():
     """ Запоминание """
-    # TODO
 
     # Получаем количество задач и латентность памяти
     n_of_tasks, latency = map(int, input().split())
 
     # Задаём начальные значение памяти и счётчика
-    memory = {}
+    memory = dict()
     count = 0
 
     # Проходим по всем задачам
@@ -495,7 +491,7 @@ def lab_3e():
     for _ in range(n_of_task):
 
         data = list(input().strip().split())
-        data = data[1:]
+        data.pop(0)
 
         # Если количество открытых страниц превышено
         if len(opened_pages) > limit:
