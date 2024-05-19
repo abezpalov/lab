@@ -39,15 +39,20 @@ def draw(event):
             koch(order - 1, x_c, y_c, x_b, y_b)
             koch(order - 1, x_b, y_b, x2, y2)
 
-    def koch2(order, x1, y1, x2, y2):
+    def quadro_koch(order, x1, y1, x2, y2):
 
         global color, pen_width
 
         if order == 0:
             canvas.create_line(x1, y1, x2, y2, fill=color, width=pen_width.get())
         else:
-            alpha = math.atan2(y2 - y1, x2 - x1)
-            r = math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
+
+            d_x = (x2 - x1) / 3
+            d_y = (y2 - y1) / 3
+
+
+
+
 
             x_a = x1 + (r / 3) * math.cos(alpha)
             y_a = y1 + (r / 3) * math.sin(alpha)
@@ -119,20 +124,23 @@ def draw(event):
 
         return res
 
+    # кривая Коха
     if fractal_type.get() == 0:
-        # кривая Коха
         x1, y1 = 0, canvas.winfo_height()
         x2, y2 = canvas.winfo_width(), 0
         koch(fractal_power.get(), x1, y1, x2, y2)
+
+    # Серпинский
     elif fractal_type.get() == 1:
-        # Серпинский
         sierpinski(fractal_power.get(), 0, canvas.winfo_height() - 20, canvas.winfo_width() - 10)
+
+    # Драконовая ломанная
     elif fractal_type.get() == 2:
-        # Драконовая ломанная
         points = get_dragon_points(fractal_power.get())
         canvas.create_line(points, fill=color, width=pen_width.get())
+
+    # Снежинка Коха
     elif fractal_type.get() == 3:
-        # Снежинка Коха
         padding = 100
         x1, y1 = padding, canvas.winfo_height() - padding*2.6
         x2, y2 = (canvas.winfo_width() / 2,
@@ -141,6 +149,12 @@ def draw(event):
         koch(fractal_power.get(), x1, y1, x2, y2)
         koch(fractal_power.get(), x2, y2, x3, y3)
         koch(fractal_power.get(), x3, y3, x1, y1)
+
+    # квадратная кривая Коха
+    elif fractal_type.get() == 4:
+        x1, y1 = 0, canvas.winfo_height()
+        x2, y2 = canvas.winfo_width(), 0
+        quadro_koch(fractal_power.get(), x1, y1, x2, y2)
 
 
 def clear(event):
@@ -170,10 +184,12 @@ if __name__ == "__main__":
     fractal_type_rad1 = tkinter.Radiobutton(manage, text="Салфетка Серпинского", variable=fractal_type, value=1)
     fractal_type_rad2 = tkinter.Radiobutton(manage, text="Драконова ломаная", variable=fractal_type, value=2)
     fractal_type_rad3 = tkinter.Radiobutton(manage, text="Снежинка Коха", variable=fractal_type, value=3)
+    fractal_type_rad4 = tkinter.Radiobutton(manage, text="Квадрокривая Коха", variable=fractal_type, value=4)
     fractal_type_rad0.pack(side=tkinter.TOP, anchor=tkinter.W)
     fractal_type_rad1.pack(side=tkinter.TOP, anchor=tkinter.W)
     fractal_type_rad2.pack(side=tkinter.TOP, anchor=tkinter.W)
     fractal_type_rad3.pack(side=tkinter.TOP, anchor=tkinter.W)
+    fractal_type_rad4.pack(side=tkinter.TOP, anchor=tkinter.W)
 
     # Выбор цвета
     color = "#000000"
