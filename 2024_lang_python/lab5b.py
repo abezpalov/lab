@@ -39,32 +39,40 @@ def draw(event):
             koch(order - 1, x_c, y_c, x_b, y_b)
             koch(order - 1, x_b, y_b, x2, y2)
 
-    def quadro_koch(order, x1, y1, x2, y2):
+    def quadro_koch(order, x0, y0, x1, y1):
 
         global color, pen_width
 
         if order == 0:
-            canvas.create_line(x1, y1, x2, y2, fill=color, width=pen_width.get())
+            canvas.create_line(x0, y0, x1, y1, fill=color, width=pen_width.get())
         else:
 
-            d_x = (x2 - x1) / 3
-            d_y = (y2 - y1) / 3
+            dx = (x1 - x0) / 3
+            dy = (y1 - y0) / 3
 
+            x_a = x0
+            y_a = y0
 
+            x_b = x_a + dx
+            y_b = y_a + dy
 
+            x_c = x_b + dy
+            y_c = y_b - dx
 
+            x_d = x_c + dx
+            y_d = y_c + dy
 
-            x_a = x1 + (r / 3) * math.cos(alpha)
-            y_a = y1 + (r / 3) * math.sin(alpha)
-            x_c = x_a + r * math.cos(alpha - math.pi / 3) / 3
-            y_c = y_a + r * math.sin(alpha - math.pi / 3) / 3
-            x_b = x1 + 2 * r * math.cos(alpha) / 3
-            y_b = y1 + 2 * r * math.sin(alpha) / 3
+            x_e = x_d - dy
+            y_e = y_d + dx
 
-            koch(order - 1, x1, y1, x_a, y_a)
-            koch(order - 1, x_a, y_a, x_c, y_c)
-            koch(order - 1, x_c, y_c, x_b, y_b)
-            koch(order - 1, x_b, y_b, x2, y2)
+            x_f = x1
+            y_f = y1
+
+            quadro_koch(order - 1, x_a, y_a, x_b, y_b)
+            quadro_koch(order - 1, x_b, y_b, x_c, y_c)
+            quadro_koch(order - 1, x_c, y_c, x_d, y_d)
+            quadro_koch(order - 1, x_d, y_d, x_e, y_e)
+            quadro_koch(order - 1, x_e, y_e, x_f, y_f)
 
     def sierpinski(order, x, y, length):
 
@@ -152,13 +160,24 @@ def draw(event):
 
     # квадратная кривая Коха
     elif fractal_type.get() == 4:
-        x1, y1 = 0, canvas.winfo_height()
-        x2, y2 = canvas.winfo_width(), 0
-        quadro_koch(fractal_power.get(), x1, y1, x2, y2)
+        x0, y0 = 0, canvas.winfo_height()
+        x1, y1 = canvas.winfo_width(), 0
+        quadro_koch(fractal_power.get(), x0, y0, x1, y1)
+
+    # сделай мне красиво
+    elif fractal_type.get() == 5:
+        x0, y0 = 10, canvas.winfo_height() - 10
+        x1, y1 = canvas.winfo_width() - 10, 10
+        quadro_koch(fractal_power.get(), x0, y0, x1, y1)
+        quadro_koch(fractal_power.get(), x1, y1, x0, y0)
 
 
 def clear(event):
     canvas.create_rectangle(0, 0, canvas.winfo_width(), canvas.winfo_height(), outline='#ffffff', fill='#ffffff')
+
+
+def dark(event):
+    canvas.create_rectangle(0, 0, canvas.winfo_width(), canvas.winfo_height(), outline='#000000', fill='#000000')
 
 
 if __name__ == "__main__":
@@ -185,11 +204,13 @@ if __name__ == "__main__":
     fractal_type_rad2 = tkinter.Radiobutton(manage, text="Драконова ломаная", variable=fractal_type, value=2)
     fractal_type_rad3 = tkinter.Radiobutton(manage, text="Снежинка Коха", variable=fractal_type, value=3)
     fractal_type_rad4 = tkinter.Radiobutton(manage, text="Квадрокривая Коха", variable=fractal_type, value=4)
+    fractal_type_rad5 = tkinter.Radiobutton(manage, text="Сделай мне красиво", variable=fractal_type, value=5)
     fractal_type_rad0.pack(side=tkinter.TOP, anchor=tkinter.W)
     fractal_type_rad1.pack(side=tkinter.TOP, anchor=tkinter.W)
     fractal_type_rad2.pack(side=tkinter.TOP, anchor=tkinter.W)
     fractal_type_rad3.pack(side=tkinter.TOP, anchor=tkinter.W)
     fractal_type_rad4.pack(side=tkinter.TOP, anchor=tkinter.W)
+    fractal_type_rad5.pack(side=tkinter.TOP, anchor=tkinter.W)
 
     # Выбор цвета
     color = "#000000"
@@ -220,5 +241,10 @@ if __name__ == "__main__":
     clear_button = tkinter.Button(manage, text="Стереть", width=12)
     clear_button.bind("<Button-1>", clear)
     clear_button.pack()
+
+    # Кнопка стирания!!
+    dark_button = tkinter.Button(manage, text="Не нажимать", width=12)
+    dark_button.bind("<Button-1>", dark)
+    dark_button.pack()
 
     root.mainloop()
