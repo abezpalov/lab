@@ -13,7 +13,7 @@
 import re
 import requests
 
-# Загружаем текст для для обработки
+# Загружаем текст для обработки
 text = requests.get('http://lib.ru/HERBERT/dune_1.txt').text
 
 # Удаляем из текста HTML-тэги, и переносы и прочий мусор из текста
