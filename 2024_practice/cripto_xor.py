@@ -1,24 +1,51 @@
 import numpy as np
 
 
+# Итератор простых чисел
+class Prime:
+
+    def __init__(self, max_quantity):
+        self.prime_digits = set()
+        self.max_quantity = max_quantity
+        self.quantity = 0
+        self.current = 1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.quantity >= self.max_quantity:
+            raise StopIteration
+
+        while True:
+            self.current += 1
+            for d in self.prime_digits:
+                if self.current % d == 0:
+                    break
+            else:
+                self.prime_digits.add(self.current)
+                self.quantity += 1
+                return self.current
+
+
 # Задаём полугруппу
 class U:
 
     # Задаём размерность матрицы n*n
-    n = 8
+    n = 16
 
     # Задаём модуль элементов матрицы
     # В примере 256 + 1
-    m = 257
+    m = 256
 
     def __init__(self, a_: list | None = None):
 
         if a_ is None:
-            self.value = np.array(range(self.n*self.n), dtype=np.dtype(np.uint64))
+            self.value = np.array(list(Prime(self.n*self.n)), dtype=np.dtype(np.uint64))
             self.value = np.resize(self.value, (self.n, self.n))
         elif type(a_) == list:
             if len(a_) > self.m:
-                a_ = a_[:self.m]
+                raise ValueError(f'Не поддерживаемая длина списка: {len(a_)}.')
             while len(a_) < self.m:
                 a_.append(0)
             self.value = np.array(a_, dtype=np.dtype(np.uint64))
@@ -26,7 +53,7 @@ class U:
         elif type(a_) == np.ndarray:
             self.value = a_
         else:
-            raise ValueError(f'Not supported type: {type(a_)}')
+            raise ValueError(f'Не поддерживаемый тип данных: {type(a_)}')
 
         self.value = self.value % self.m
 
@@ -102,10 +129,12 @@ if __name__ == '__main__':
     u = U()
     print(f'u = \n{u}\n')
 
+    # Первое сообщение
+
     # 1. Отправитель генерирует случайное число n и вычисляет u^n
     # В примере одно из максимальных 16-битных простых чисел
     # В реальности, чем больше, тем лучше
-    n = 65449
+    n = 65449*340
     print(f'n = {n}\n')
 
     u_n = u**n
@@ -114,7 +143,7 @@ if __name__ == '__main__':
     # 2. Получатель генерирует случайное число m и вычисляет u^m
     # В примере одно из максимальных 16-битных простых чисел
     # В реальности, чем больше, тем лучше
-    m = 65521
+    m = 65521*251
     print(f'n = {m}\n')
 
     u_m = u**m
@@ -135,11 +164,8 @@ if __name__ == '__main__':
     print(f'размер ключа = {len(hex(decrypt_key)[2:])*16} бит\n')
 
     # 5 Отправитель кодирует строку в бинарный вид и шифрует её
-    s = "Всё, что зашифровано, должно быть расшифровано!"
+    s = "Всё ли, что зашифровано, должно быть расшифровано?"
     print(f's1 = {s}')
-    for e in s.encode():
-        print(e)
-    print(list(s.encode()))
     encoded_s = U(list(s.encode()))
     print(f'encoded_s = \n{encoded_s}\n')
 
@@ -153,3 +179,48 @@ if __name__ == '__main__':
     decoded_s = decrypted_s.decode()
     print(f'decoded_s = {decoded_s}\n')
 
+    # Второе сообщение
+
+    # 1. Отправитель генерирует случайное число n и вычисляет u^n
+    n = 65449*42
+    print(f'n = {n}\n')
+
+    u_n = u**n
+    print(f'u^n = \n{u_n}\n')
+
+    # 2. Получатель генерирует случайное число m и вычисляет u^m
+    m = 65521*65
+    print(f'n = {m}\n')
+
+    u_m = u**m
+    print(f'u^m = \n{u_m}\n')
+
+    # 3. Отправитель вычисляет ключ и переводит его в целочисленное значение
+    u_m_n = u_m ** n
+    print(f'u^m^n = \n{u_m_n}\n')
+    encrypt_key = int(u_m_n)
+    print(f'encoder_key = {hex(encrypt_key)[2:]}')
+    print(f'размер ключа = {len(hex(encrypt_key)[2:])*16} бит')
+
+    # 4. Получатель вычисляет ключ
+    u_n_m = u_n ** m
+    print(f'u^n^m = \n{u_n_m}\n')
+    decrypt_key = int(u_n_m)
+    print(f'encoder_key = {hex(decrypt_key)[2:]}\n')
+    print(f'размер ключа = {len(hex(decrypt_key)[2:])*16} бит\n')
+
+    # 5 Отправитель кодирует строку в бинарный вид и шифрует её
+    s = "Возможно. При этом остаётся вопрос: кем и когда!"
+    print(f's1 = {s}')
+    encoded_s = U(list(s.encode()))
+    print(f'encoded_s = \n{encoded_s}\n')
+
+    encrypted_s = u_n_m ^ encoded_s
+    print(f'encrypted_s = \n{encrypted_s}\n')
+
+    # 6. Получатель дешифрует и декодирует сообщение
+    decrypted_s = u_m_n ^ encrypted_s
+    print(f'decrypted_s = \n{decrypted_s}\n')
+
+    decoded_s = decrypted_s.decode()
+    print(f'decoded_s = {decoded_s}\n')
