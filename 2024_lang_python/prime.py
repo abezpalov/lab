@@ -25,5 +25,5 @@ class Prime:
 
 
 if __name__ == '__main__':
-    for n, i in enumerate(Prime(1000000), 1):
+    for n, i in enumerate(Prime(50000), 1):
         print(n, i)
