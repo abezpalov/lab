@@ -1,4 +1,5 @@
 import numpy as np
+import datetime
 
 
 # Итератор простых чисел
@@ -36,7 +37,7 @@ class U:
 
     # Задаём модуль элементов матрицы
     # В примере 256 + 1
-    m = n * n
+    m = 257
 
     def __init__(self, a_: list | None = None):
 
@@ -128,6 +129,28 @@ if __name__ == '__main__':
     # Получаем элемент u
     u = U()
     print(f'u = \n{u}\n')
+
+    """
+    for n in range(1, 10, 1):
+
+        # Оцениваем быстрое возведение в степень 10**n
+        start = datetime.datetime.utcnow()
+        u_n = u**(10**n)
+        # print(f'n = {n}\n')
+        # print(f'u^n = \n{u_n}\n')
+        end = datetime.datetime.utcnow()
+
+        # Оцениваем время подбора ключа
+        u_m = U()
+
+        while not np.array_equiv(u_n.value, u_m.value):
+            u_m = u_m * u
+
+        # print(f'u^m = \n{u_m}\n')
+
+        full_end = datetime.datetime.utcnow()
+
+        print(n, end - start, full_end - end)"""
 
     # Первое сообщение
 
